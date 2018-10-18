@@ -11,12 +11,8 @@ public class Yahtzee {
 	
 	public static void main(String[] args) {
 		YahtzeeSpel yahtzeespel = new YahtzeeSpel();	
-		yahtzeespel.spelen();
-		
-		
-	
+		yahtzeespel.spelen();	
 	}
-
 }
 
 class YahtzeeSpel {
@@ -32,9 +28,7 @@ class YahtzeeSpel {
 	
 	void spelen() {
 			spelerinvoer();
-		while (doorgaan) {
-			
-			
+		while (doorgaan) {		
 			for (int h = 0 ; h < spelers.size() ; h++) {
 				aantalvervolgworpen = 0;
 				System.out.println("De beurt is aan " + spelers.get(h).naam);
@@ -57,13 +51,9 @@ class YahtzeeSpel {
 			System.out.println("Voer uw naam in:");
 			String invoer = Yahtzee.sc.nextLine();
 			spelers.add(maakSpeler (invoer));
-			
 			System.out.println("Wil je nog een speler toevoegen? 'j' voor ja, 'n' voor nee");
 			String invoer2 = Yahtzee.sc.nextLine();
-			
-			nameninvoeren = spelerinvoermenu (invoer2);
-			
-			
+			nameninvoeren = spelerinvoermenu (invoer2);						
 		} while (nameninvoeren);
 
 		System.out.print("Het spel begint. ");
@@ -73,8 +63,7 @@ class YahtzeeSpel {
 				System.out.println(spelers.get(x).naam);			
 			} else {				
 				System.out.print(spelers.get(x).naam + ", ");			
-			}
-					
+			}					
 		}
 	}
 	
@@ -90,8 +79,7 @@ class YahtzeeSpel {
 			System.out.println("Wil je nog een speler toevoegen? 'j' voor ja, 'n' voor nee");
 			String invoer = Yahtzee.sc.nextLine();
 			spelerinvoermenu(invoer);
-		}
-		
+		}		
 		return nameninvoeren;
 	}
 	
@@ -124,7 +112,6 @@ class YahtzeeSpel {
 		
 	void vervolgstappen (Speler speler) {
 	
-
 		if (aantalvervolgworpen < 2) {
 			System.out.println(speler.naam + ", druk 'b' om deze uitkomst te behouden, 'n' om nogmaals te gooien");
 			String invoer = Yahtzee.sc.nextLine();	
@@ -139,22 +126,22 @@ class YahtzeeSpel {
 			}
 		} else {
 			speler.worpgeschiedenis.add(Worp.uitslag(speler));
-		}
-			
-		
-		
+		}		
 	}
 
 	void verwerkinvoer (Speler speler) {
 		System.out.println("");
-		System.out.println("Druk 1 als een dobbelsteen moet blijven liggen, 0 voor opnieuw gooien.");
+		System.out.println("Welke dobbelstenen wil je laten liggen?");
 		String invoer = Yahtzee.sc.nextLine();
 		
-		for (int u = 0 ; u < 5 ; u++) {				
-			int los = Character.getNumericValue(invoer.charAt(u));
-			blokkeerarray[u] = los;
-		}
-		
+		for (int d = 0 ; d < invoer.length() ; d++) {
+			int los = Character.getNumericValue(invoer.charAt(d)-1);
+			for (int u = 0 ; u < blokkeerarray.length ; u++) {
+				if (los == u) {
+					blokkeerarray[u] = 1;
+				}
+			}			
+		}			
 		gooimetdobbelstenen();	
 		Arrays.fill(blokkeerarray, 0);
 		vervolgstappen (speler);		
@@ -204,10 +191,8 @@ class Worp {
 		}
 		System.out.println(speler.naam + ", dit is je definitieve uitslag van deze beurt");
 		System.out.println(); 
-		return worp;
-		 
-	 }
-	 
+		return worp;		 
+	 }	 
 }
 
 class Speler {
